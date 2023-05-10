@@ -17,19 +17,19 @@ function App() {
     setNewTodoName("");
   }
 
-  function toggleTodo (todoId, completed) {
-    setTodos(currentTodos => {
-      return currentTodos.map(todo => {
-        if(todo.id === todoId) return { ...todo, completed}
-        return todo
-      })
-    })
+  function toggleTodo(todoId, completed) {
+    setTodos((currentTodos) => {
+      return currentTodos.map((todo) => {
+        if (todo.id === todoId) return { ...todo, completed };
+        return todo;
+      });
+    });
   }
 
   function deleteTodo(todoId) {
-    setTodos(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== todoId)
-    })
+    setTodos((currentTodos) => {
+      return currentTodos.filter((todo) => todo.id !== todoId);
+    });
   }
 
   return (
@@ -37,18 +37,12 @@ function App() {
       <ul id="list">
         {todos.map((todo) => {
           return (
-            <li key={todo.id} className="list-item">
-              <label className="list-item-label">
-                <input
-                  checked={todo.completed}
-                  type="checkbox"
-                  data-list-item-checkbox
-                  onChange={(e) => toggleTodo(todo.id, e.target.checked)}
-                />
-                <span data-list-item-text>{todo.name}</span>
-              </label>
-              <button onClick={() => deleteTodo(todo.id)} data-button-delete>Delete</button>
-            </li>
+            <TodoItem
+              key={todo.id}
+              {...todo}
+              toggleTodo={toggleTodo}
+              deleteTodo={deleteTodo}
+            />
           );
         })}
       </ul>
